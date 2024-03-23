@@ -1,12 +1,19 @@
 import products from '@/assets/data/products';
 import Colors from '@/src/constants/Colors';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import { Product } from '../types/types';
+
+const fallbackImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/peperoni.png';
+
+type ProductListItemProps ={
+  product: Product;
+}
 
 
-const ProductListItem = ({product}) => {
+const ProductListItem = ({product}:ProductListItemProps) => {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: product.image }} style={styles.productImage} />
+      <Image source={{ uri: product.image || fallbackImage }} style={styles.productImage} />
       <Text style={styles.title}>{product.name}</Text>
       <Text style={styles.price}>{product.price}</Text>
     </View>
