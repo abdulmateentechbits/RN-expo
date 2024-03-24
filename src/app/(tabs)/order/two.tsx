@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import EditScreenInfo from '@/src/components/EditScreenInfo';
 import { Text, View } from '@/src/components/Themed';
 
-export default function TabTwoScreen() {
+export default function OrdersScreen() {
   return (
     <View style={styles.container}>
       <Text>Order Screen</Text>
