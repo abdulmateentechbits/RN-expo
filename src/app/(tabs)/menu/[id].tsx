@@ -4,7 +4,6 @@ import { View, Text } from 'react-native'
 
 const ProductDetailScreen = () => {
   const { id } = useLocalSearchParams();
-  console.log("🚀 ~ ProductDetailScreen ~ id:", id);
 
   return (
     <View>
