@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { Divider, TextInput, Text } from 'react-native-paper'
 import { Image } from 'expo-image';
@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Button from '@/src/components/Button';
 
 import Colors from '@/src/constants/Colors';
-import { Stack } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 const blurhash =
     '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
@@ -19,6 +19,9 @@ const create = () => {
     const [price, setPrice] = useState("");
 
     const [errors, setErrors] = useState("");
+
+    const { id } = useLocalSearchParams();
+    const isUpdating = !!id;
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -53,8 +56,15 @@ const create = () => {
         setPrice("");
         setErrors("");
     }
+    const onCreate = ()=>{
+        if (!validateInput()) {
+            return;
+        }
 
-    const onCreate = () => {
+        console.log("Create Product!  ");
+        resetFields()
+    }
+    const onUpdateCreate = ()=>{
         if (!validateInput()) {
             return;
         }
@@ -63,9 +73,33 @@ const create = () => {
         resetFields()
     }
 
+    const onSubmitHandler = () => {
+      if(isUpdating){
+        onUpdateCreate();
+      }else{
+        onCreate();
+      }
+    }
+    const onDelete = ()=>{
+        console.log("Confirm Delete!");
+    }
+
+
+    const onConfirmDelete = ()=>{
+        Alert.alert("Confirm","Are you sure you want to delete?",[
+          {
+            text: "Cancel"
+          },{
+            text: "Delete",
+            style:"destructive",
+            onPress: onDelete
+          }
+        ]);
+    }
+
     return (
         <View style={styles.container}>
-            <Stack.Screen options={{ title: "Create Product" }} />
+            <Stack.Screen options={{ title: isUpdating ? "Updating Product" : "Create Product" }} />
             <View style={styles.imageContainer}>
                 <Image
                     style={styles.image}
@@ -96,7 +130,12 @@ const create = () => {
                         <Text style={{ color: 'red' }}>{errors}</Text>
                     ) : null
                 }
-                <Button text='Create' onPress={onCreate} />
+                <Button text={isUpdating ? "Update" : "Create"} onPress={onSubmitHandler} />
+                {
+                    isUpdating ? (
+                        <Text onPress={onConfirmDelete} style={{ color:"red", textAlign:'center',fontSize:21}}>Delete</Text>
+                    ) : null
+                }
             </View>
         </View>
     )
