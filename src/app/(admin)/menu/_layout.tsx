@@ -11,7 +11,7 @@ export default function MenuStackedComponent() {
                 options={{
                     title: "Menu",
                     headerRight: () => (
-                        <Link href="/" asChild>
+                        <Link href="/(admin)/create" asChild>
                             <Pressable>
                                 {
                                     ({ pressed }) => {
