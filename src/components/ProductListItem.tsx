@@ -2,7 +2,7 @@ import products from '@/assets/data/products';
 import Colors from '@/src/constants/Colors';
 import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 import { Product } from '../types/types';
-import { Link } from 'expo-router';
+import { Link, useSegments } from 'expo-router';
 
 const fallbackImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/peperoni.png';
 
@@ -12,8 +12,11 @@ type ProductListItemProps = {
 
 
 const ProductListItem = ({ product }: ProductListItemProps) => {
+  const [segments] = useSegments();
+  console.log("🚀 ~ ProductListItem ~ segments:", segments)
+  
   return (
-    <Link href={`/menu/${product.id}`} asChild>
+    <Link href={`/${segments[0]}/menu/${product.id}`} asChild>
     <Pressable style={styles.container}>
       <Image
         source={{ uri: product.image || fallbackImage }}

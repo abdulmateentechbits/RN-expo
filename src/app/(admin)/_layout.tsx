@@ -20,8 +20,14 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors.light.background,
+        tabBarInactiveTintColor:"#c1c1c1",
         headerShown: useClientOnlyValue(false, true),
+        tabBarActiveBackgroundColor:Colors.light.tint,
+        tabBarStyle:{
+          backgroundColor:Colors.light.tint,
+        }
+
       }}>
       <Tabs.Screen name='index' options={{
         href: null
@@ -40,22 +46,6 @@ export default function TabLayout() {
           title: 'Orders',
           headerShown:false,
           tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="payment"
-        options={{
-          title: 'Payment',
-          headerShown:false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="money" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          headerShown:false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </Tabs>
