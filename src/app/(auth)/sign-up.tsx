@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { TextInput } from 'react-native-paper'
 import Button from '@/src/components/Button';
-import { Link } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 
 const SignUp = () => {
 
@@ -16,6 +16,7 @@ const SignUp = () => {
 
     return (
         <View style={styles.container}>
+          <Stack.Screen options={{title: 'Sign Up'}} />
             <View style={{ rowGap: 10 }}>
                 <TextInput
                     mode='outlined'
