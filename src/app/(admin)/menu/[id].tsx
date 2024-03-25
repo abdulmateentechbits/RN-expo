@@ -32,21 +32,9 @@ const ProductDetailScreen = () => {
       <Stack.Screen options={{ title: product?.name }} />
       <Image source={{ uri: product?.image as string }} style={styles.image} />
 
-      <Text style={{marginTop:15, fontSize:17, fontWeight:'bold'}}>Select Size</Text>
-      <View style={styles.sizes}>
-        {
-          varaints.map((size) => (
-            <TouchableOpacity
-              onPress={() => setSelectedVarients(size)}
-              key={size}
-              style={[styles.size, { backgroundColor: selectedVarients === size ? "red" : "#FFFFFF" }]}>
-              <Text style={[styles.sizeText,{color:selectedVarients === size ? "white":"black"}]}>{size}</Text>
-            </TouchableOpacity>
-          ))
-        }
-      </View>
+      
+      <Text style={styles.title}>{product.name}</Text>
       <Text style={styles.price}>$ {product.price}</Text>
-      <Button onPress={addToCart} text='Add to cart' />
     </View>
   )
 }
@@ -67,22 +55,8 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: "bold",
-    marginTop:"auto"
   },
-  sizes: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: 20
-  },
-  size: {
-    width: 50,
-    backgroundColor: "#ee99cc",
-    aspectRatio: 1,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  sizeText: {
+  title: {
     fontSize: 20,
     fontWeight: "bold",
   }

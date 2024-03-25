@@ -11,13 +11,38 @@ export default function MenuStackedComponent() {
                 options={{
                     title: "Menu",
                     headerRight: () => (
-                        <Link href="/cart" asChild>
+                        <Link href="/" asChild>
                             <Pressable>
                                 {
                                     ({ pressed }) => {
                                         return (
                                             <FontAwesome
-                                                name="shopping-cart"
+                                                name="plus-square-o"
+                                                size={25}
+                                                color={Colors.light.tint}
+                                                style={{ marginRight: 10, opacity: pressed ? 0.5 : 1 }}
+                                            />
+                                        )
+                                    }
+                                }
+                            </Pressable>
+                        </Link>
+                    )
+                }}
+
+            />
+            <Stack.Screen
+                name="[id]"
+                options={{
+                    title: "Menu",
+                    headerRight: () => (
+                        <Link href="/" asChild>
+                            <Pressable>
+                                {
+                                    ({ pressed }) => {
+                                        return (
+                                            <FontAwesome
+                                                name="pencil"
                                                 size={25}
                                                 color={Colors.light.tint}
                                                 style={{ marginRight: 10, opacity: pressed ? 0.5 : 1 }}
