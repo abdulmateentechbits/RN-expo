@@ -1,22 +1,30 @@
-import products from '@/assets/data/products';
+import products, { shirts } from '@/assets/data/products';
+import { useCart } from '@/src/Provider/CardProvider';
 import Button from '@/src/components/Button';
-import { Product } from '@/src/types/types';
+import { PizzaSize, Product } from '@/src/types/types';
+import { useRouter } from 'expo-router';
 import { Stack, useLocalSearchParams } from 'expo-router'
 import React, { useState } from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
-const varaints = ["S", "M", "L", "XL"];
+const varaints: PizzaSize[] = ["S", "M", "L", "XL"];
 
 const ProductDetailScreen = () => {
   const { id } = useLocalSearchParams();
-  const [selectedVarients, setSelectedVarients] = useState("S")
+  const [selectedVarients, setSelectedVarients] = useState<PizzaSize>("S");
+  
+  const router = useRouter();
+
+  const {addItem} = useCart();
 
   const product = products.find((p: Product) => p.id === Number(id));
   
   if (!product) return <Text>Product Not Found</Text>
 
   const addToCart =()=>{
-    console.log("Add to Cart")
+    if(!product) return;
+    addItem(product, selectedVarients);
+    router.push("/cart");
   }
   
   return (
@@ -24,7 +32,7 @@ const ProductDetailScreen = () => {
       <Stack.Screen options={{ title: product?.name }} />
       <Image source={{ uri: product?.image as string }} style={styles.image} />
 
-      <Text>Select Size</Text>
+      <Text style={{marginTop:15, fontSize:17, fontWeight:'bold'}}>Select Size</Text>
       <View style={styles.sizes}>
         {
           varaints.map((size) => (

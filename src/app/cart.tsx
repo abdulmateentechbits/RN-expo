@@ -1,23 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
-
-import EditScreenInfo from '@/src/components/EditScreenInfo';
+import { FlatList, Platform, StyleSheet } from 'react-native';
 import { Text, View } from '@/src/components/Themed';
+import { useCart } from '../Provider/CardProvider';
+import CartListItem from '../components/CartListItem';
+import Button from '../components/Button';
 
-export default function ModalScreen() {
+export default function CartScreen() {
+  const {items,total} = useCart();
+
   return (
     <View style={styles.container}>
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-      
+      <FlatList contentContainerStyle={{gap:10,padding:10}} data={items} renderItem={({item})=><CartListItem cartItem={item} />} />
+      <Text style={{fontWeight:'bold', paddingHorizontal:12}}>Total: ${total}</Text>
+      <Button text='Checkout' />
+   
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding:10
   },
   title: {
     fontSize: 20,
