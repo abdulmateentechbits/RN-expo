@@ -1,13 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 
 import EditScreenInfo from '@/src/components/EditScreenInfo';
 import { Text, View } from '@/src/components/Themed';
+import orders from '@/assets/data/orders';
+import OrderListItem from '@/src/components/OrderListItems';
 
 export default function OrdersScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Order Screen</Text>
-    </View>
+    <FlatList
+      data={orders}
+      renderItem={({item})=>(<OrderListItem order={item} />)}
+    
+    />
   );
 }
 
