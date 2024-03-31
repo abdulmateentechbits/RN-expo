@@ -9,14 +9,14 @@ type CartType = {
     updateQuantity: (itemId: string, amount: -1 | 1) => void
     total: number
 }
-const CardProviderContext = createContext<CartType>({
+const CartProviderContext = createContext<CartType>({
     items: [],
     addItem: () => { },
     updateQuantity: () => { },
     total: 0
 });
 
-const CardProvider = ({ children }: PropsWithChildren) => {
+const CartProvider = ({ children }: PropsWithChildren) => {
     const [items, setItems] = useState<CartItem[]>([]);
 
     const addItem = (product: Product, size: CartItem['size']) => {
@@ -45,17 +45,17 @@ const CardProvider = ({ children }: PropsWithChildren) => {
     }
     let total = items.reduce((total, item) => (total += item.product.price * item.quantity), 0);
     return (
-        <CardProviderContext.Provider value={{
+        <CartProviderContext.Provider value={{
             items,
             addItem,
             updateQuantity,
             total
         }}>
             {children}
-        </CardProviderContext.Provider>
+        </CartProviderContext.Provider>
     )
 }
 
-export default CardProvider;
+export default CartProvider;
 
-export const useCart = () => useContext(CardProviderContext);
+export const useCart = () => useContext(CartProviderContext);

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { TextInput } from 'react-native-paper'
 import Button from '@/src/components/Button';
 import { Link, Stack } from 'expo-router';
+import { supabase } from '@/src/lib/supabase';
 
 const SignIn = () => {
 
@@ -11,7 +12,28 @@ const SignIn = () => {
 
     const [errors, setErrors] = useState("");
 
-    const onSignIn = async () => {}
+    const [isLoading,setIsLoading] = useState(false);
+
+
+    const onSignIn = async () => {
+        setIsLoading(true);
+        try {
+        const result =  await supabase.auth.signInWithPassword({
+             email: email,
+             password: password
+         })
+         console.log("🚀 ~ onSignUp ~ result:", result)
+         if(result?.data?.user){
+             setEmail("");
+             setPassword("")
+         }
+         setIsLoading(false);
+        } catch (error) {
+         setIsLoading(false);
+         console.log("🚀 ~ onSignUp ~ error:", error)
+         
+        }
+    }
     const goToSignUp =  () => {}
 
     return (
@@ -27,17 +49,16 @@ const SignIn = () => {
                 <TextInput
                     mode='outlined'
                     label="Password"
-                    placeholder='99.99'
+                    placeholder='password'
                     value={password}
                     onChangeText={text => setPassword(text)}
-                    secureTextEntry
                 />
                 {
                     errors ? (
                         <Text style={{ color: 'red' }}>{errors}</Text>
                     ) : null
                 }
-                <Button text="Login" onPress={onSignIn} />
+                <Button disabled={isLoading} text={isLoading ? "Logging...":"Login"} onPress={onSignIn} />
                 <Link href="/sign-up" style={{ color:"blue", textAlign:'center',fontSize:21}}>Create Account</Link>
             </View>
         </View>

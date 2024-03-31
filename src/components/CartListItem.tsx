@@ -4,7 +4,8 @@ import Colors from '../constants/Colors';
 import { Link } from 'expo-router';
 import { FontAwesome } from '@expo/vector-icons';
 import { CartItem } from '../types/types';
-import { useCart } from '../Provider/CardProvider';
+import { useCart } from '../Provider/CartProvider';
+
 
 type CartListItemProps = {
   cartItem: CartItem;

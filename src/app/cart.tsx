@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Platform, StyleSheet } from 'react-native';
 import { Text, View } from '@/src/components/Themed';
-import { useCart } from '../Provider/CardProvider';
+
 import CartListItem from '../components/CartListItem';
 import Button from '../components/Button';
+import { useCart } from '../Provider/CartProvider';
 
 export default function CartScreen() {
   const {items,total} = useCart();

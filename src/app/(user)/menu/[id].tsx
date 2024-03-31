@@ -1,5 +1,5 @@
 import products, { shirts } from '@/assets/data/products';
-import { useCart } from '@/src/Provider/CardProvider';
+import { useCart } from '@/src/Provider/CartProvider';
 import Button from '@/src/components/Button';
 import { PizzaSize, Product } from '@/src/types/types';
 import { useRouter } from 'expo-router';
